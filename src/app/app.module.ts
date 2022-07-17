@@ -14,7 +14,6 @@ import {
   InMemoryDbService,
 } from 'angular-in-memory-web-api';
 import { InMemoryDataService } from './in-memory-data.service';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 @NgModule({
@@ -22,7 +21,6 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
   imports: [
     BrowserModule,
     HttpClientModule,
-    NgbModule,
     RouterModule.forRoot(routes),
     AppStoreModule,
     externalModules,
