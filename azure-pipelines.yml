@@ -9,6 +9,9 @@ trigger:
 pool:
   vmImage: 'ubuntu-latest'
 
+variables:
+  npm_config_cache: $(Pipeline.Workspace)/.npm
+
 stages:
 - stage: Build
   displayName: Build stage
