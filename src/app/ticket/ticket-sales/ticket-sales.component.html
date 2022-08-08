@@ -1,0 +1,206 @@
+<h2 class="title">チケット購入</h2>
+<form class="box" [formGroup]="orderForm" (ngSubmit)="onSubmit()">
+
+  <h3 class="subtitle">
+    <span class="icon">
+      <i class="fas fa-couch"></i>
+    </span>
+    <span> 注文情報</span>
+  </h3>
+
+  <div class="field">
+    <label class="label" for="id">
+      注文番号
+    </label>
+    <div class="control">
+      <input class="input is-static" id="id" type="text" formControlName="id">
+    </div>
+  </div>
+  <div class="field">
+    <label class="label" for="orderDate">
+      注文日時
+    </label>
+    <div class="control">
+      {{ orderForm.value.orderDate | date:"yyyy/MM/dd HH:mm" }}
+      <input class="input is-static" id="orderDate" type="hidden" formControlName="orderDate">
+    </div>
+  </div>
+  <div class="field">
+<!--      <label class="label" for="concertID">
+      演奏会ID
+    </label>
+-->
+    <div class="control">
+      <input class="input is-static" id="concertID" type="hidden" formControlName="concertID">
+    </div>
+  </div>
+  <div class="field">
+    <label class="label" for="concertName">
+      演奏会名
+    </label>
+    <div class="control">
+      <input class="input is-static" id="concertName" type="text" formControlName="concertName">
+    </div>
+  </div>
+  <div class="field">
+    <div formArrayName="orderDetail">
+      <label class="label" for="orderDetail">
+        座席選択
+      </label>
+      <div *ngFor="let detail of orderDetail.controls; let i = index">
+        <div class="is-grouped is-grouped-multiline">
+          <ng-container [formGroupName]="i">
+            <span class="select">
+              <select class="control" id="orderDetail-{{ i }}-floor" formControlName="floor">
+                <option value="3">3階</option>
+              </select>
+            </span>
+            <span class="select">
+              <select class="control" id="orderDetail-{{ i }}-column" formControlName="column">
+                <option value="LA">LA列</option>
+                <option value="LB">LB列</option>
+                <option value="LC">LC列</option>
+              </select>
+            </span>
+            <span class="select">
+              <select class="control" id="orderDetail-{{ i }}-number" formControlName="number">
+                <option value="01">01番</option>
+                <option value="02">02番</option>
+                <option value="03">03番</option>
+              </select>
+            </span>
+            <span class="select">
+              <select class="control" id="orderDetail-{{ i }}-rank" formControlName="rank">
+                <option value="S">S席</option>
+                <option value="A">A席</option>
+                <option value="B">B席</option>
+              </select>
+            </span>
+            <span *ngIf="i!==0">
+              <button class="button" (click)="deleteOrderDetail(i)">
+                <span class="icon">
+                  <i class="fas fa-times-square"></i>
+                </span>    
+              </button>
+            </span>
+          </ng-container>
+        </div>
+      </div>
+      <div>
+        <button class="button" type="button" (click)="addOrderDetail()">座席追加</button>
+      </div>
+    </div>
+  </div>
+
+  <h3 class="subtitle">
+    <span class="icon">
+      <i class="fas fa-user"></i>
+    </span>
+    <span> お客さま情報</span>
+  </h3>
+
+  <div class="field">
+    <label class="label" for="userID">
+      ユーザーID
+    </label>
+    <div class="control">
+      <input class="input" id="userID" type="text" formControlName="userID" placeholder="ユーザーID">
+    </div>
+  </div>
+  <div class="field">
+    <label class="label" for="nameSei">
+      姓
+    </label>
+    <div class="control">
+      <input class="input" id="nameSei" type="text" formControlName="nameSei" placeholder="姓">
+    </div>
+  </div>
+  <div class="field">
+    <label class="label" for="nameMei">
+      名
+    </label>
+    <div class="control">
+      <input class="input" id="nameMei" type="text" formControlName="nameMei" placeholder="名">
+    </div>
+  </div>
+  <div class="field">
+    <label class="label" for="postCode">
+      郵便番号
+    </label>
+    <div class="control">
+      <input class="input" id="postCode" type="text" formControlName="postCode" placeholder="郵便番号">
+    </div>
+  </div>
+  <div class="field">
+    <label class="label" for="address">
+      住所
+    </label>
+    <div class="control">
+      <input class="input" id="address" type="text" formControlName="address" placeholder="住所">
+    </div>
+  </div>
+  <div class="field">
+    <label class="label" for="mail">
+      メールアドレス
+    </label>
+    <div class="control has-icons-left">
+      <input class="input" id="mail" type="email" formControlName="mail" placeholder="メールアドレス">
+      <span class="icon is-small is-left">
+        <i class="fas fa-envelope"></i>
+      </span>
+    </div>
+  </div>
+  <div class="field">
+    <label class="label" for="phone">
+      電話番号
+    </label>
+    <div class="control">
+      <input class="input" id="phone" type="text" formControlName="phone" placeholder="電話番号">
+    </div>
+  </div>
+
+  <h3 class="subtitle">
+    <span class="icon">
+    <i class="fas fa-ticket"></i>
+    </span>
+    <span> チケット取り扱い方法</span>
+  </h3>
+
+  <div class="field">
+    <label class="label" for="payMethod">
+      代金お支払い方法
+    </label>
+    <div class="control">
+      <label class="radio">
+        <input class="radio" id="payMethod" type="radio" formControlName="payMethod" name="payMethod" value="furikomi">
+        銀行振込
+      </label>
+      <label class="radio">
+        <input class="radio" id="payMethod" type="radio" formControlName="payMethod" name="payMethod" value="toujitsu">
+        当日精算
+      </label>
+    </div>
+  </div>
+  <div class="field">
+    <label class="label" for="passMethod">
+      チケットお渡し方法
+    </label>
+    <div class="control">
+      <label class="radio">
+        <input class="radio" id="passMethod" type="radio" formControlName="passMethod" name="passMethod" value="yuso">
+        郵送
+      </label>
+      <label class="radio">
+        <input class="radio" id="passMethod" type="radio" formControlName="passMethod" name="passMethod" value="azukari">
+        当日預かり
+      </label>
+    </div>
+  </div>
+
+  <button class="button is-link" [disabled]="!orderForm.valid" type="submit">
+    <span>次へ</span>
+    <span class="icon">
+      <i class="fas fa-arrow-right"></i>
+    </span>
+  </button>
+</form>

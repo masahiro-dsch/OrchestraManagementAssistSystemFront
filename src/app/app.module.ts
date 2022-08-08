@@ -14,23 +14,29 @@ import {
   InMemoryDbService,
 } from 'angular-in-memory-web-api';
 import { InMemoryDataService } from './in-memory-data.service';
-
+import { ConcertService } from './services/concert.service';
+import { SeatService } from './services/seat.service';
 
 @NgModule({
   declarations: [AppComponent, AboutComponent, declarations],
   imports: [
     BrowserModule,
     HttpClientModule,
-    RouterModule.forRoot(routes),
+    RouterModule.forRoot(routes,{
+      scrollPositionRestoration: 'enabled', // enabled で有効化
+      anchorScrolling: 'enabled', // enabled で有効化  
+    }),
     AppStoreModule,
     externalModules,
+    //バックエンドと疎通する場合は以下5行をコメントアウト
     HttpClientInMemoryWebApiModule.forRoot(InMemoryDataService, {
       dataEncapsulation: false,
       delay: 300,
       passThruUnknownUrl: true,
     }),
   ],
-  providers: [{ provide: InMemoryDataService, useExisting: InMemoryDbService }],
+  providers: [{ provide: InMemoryDataService, useExisting: InMemoryDbService }, ConcertService, SeatService],
+    // providers: [ConcertService, SeatService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

@@ -9,6 +9,20 @@ export const routes: Routes = [
     loadChildren: () =>
       import('./products/products.module').then((m) => m.ProductsModule),
   },
-  { path: 'about', component: AboutComponent },
-  { path: '**', component: NotFoundComponent },
+  { path: 'about',
+    component: AboutComponent,
+  },
+  {
+    path: 'concerts',
+    loadChildren: () =>
+      import('./concert-menu/concert-menu.module').then((m) => m.ConcertMenuModule),
+  },
+  {
+    path: 'ticket',
+    loadChildren: () =>
+      import('./ticket/ticket.module').then((m) => m.TicketModule),
+  },
+  { path: '**', 
+    component: NotFoundComponent,
+  },
 ];

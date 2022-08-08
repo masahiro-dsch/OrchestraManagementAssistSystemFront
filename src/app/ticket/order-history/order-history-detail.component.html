@@ -1,0 +1,171 @@
+<h2 class="title" id="top">購入履歴詳細</h2>
+<div *ngIf="!orderHistoryDetail">
+    購入履歴を選択して下さい。
+</div>
+<form class="box" [formGroup]="orderForm" *ngIf="orderHistoryDetail">
+  <h3 class="subtitle">
+    <span class="icon">
+      <i class="fas fa-couch"></i>
+    </span>
+    <span> 注文情報</span>
+  </h3>
+
+  <div class="field">
+    <label class="label" for="id">
+      注文番号
+    </label>
+    <div class="control">
+      <input class="input is-static" id="id" type="text" formControlName="id">
+    </div>
+  </div>
+  <div class="field">
+    <label class="label" for="orderDate">
+      注文日時
+    </label>
+    <div class="control">
+      {{ orderForm.value.orderDate | date:"yyyy/MM/dd HH:mm" }}
+      <input class="input is-static" id="orderDate" type="hidden" formControlName="orderDate">
+    </div>
+  </div>
+
+  <div class="field">
+<!--
+    <label class="label" for="concertID">
+      Concert ID
+    </label>
+-->
+    <div class="control">
+      <input class="input is-static" id="concertID" type="hidden" formControlName="concertID">
+    </div>
+  </div>
+  <div class="field">
+    <label class="label" for="concertName">
+      演奏会名
+    </label>
+    <div class="control">
+      <input class="input is-static" id="concertName" type="text" formControlName="concertName">
+    </div>
+  </div>
+  <div class="field">
+    <div formArrayName="orderDetail">
+      <label class="label" for="orderDetail">
+        座席
+      </label>
+      <div class="is-grouped is-grouped-multiline" *ngFor="let detail of orderDetail.controls; let i = index">
+        <ng-container [formGroupName]="i">
+          <span>
+            {{ orderForm.value.orderDetail[i].floor }}階{{ orderForm.value.orderDetail[i].column }}列{{ orderForm.value.orderDetail[i].number }}番（{{ orderForm.value.orderDetail[i].rank }}席）
+          </span>
+          <input class="input control is-static" id="orderDetail-{{ i }}-floor" type="hidden" formControlName="floor">          
+          <input class="input is-static" id="orderDetail-{{ i }}-column" type="hidden" formControlName="column">
+          <input class="input is-static" id="orderDetail-{{ i }}-number" type="hidden" formControlName="number">
+          <input class="input is-static" id="orderDetail-{{ i }}-rank" type="hidden" formControlName="rank">
+        </ng-container>
+      </div>
+    </div>
+  </div>
+
+  <h3 class="subtitle">
+    <span class="icon">
+      <i class="fas fa-user"></i>
+    </span>
+    <span> お客さま情報</span>
+  </h3>
+
+  <div class="field">
+    <label class="label" for="userID">
+      ユーザーID
+    </label>
+    <div class="control">
+      <input class="input is-static" id="userID" type="text" formControlName="userID">
+    </div>
+  </div>
+  <div class="field">
+    <label class="label" for="nameSei">
+      姓
+    </label>
+    <div class="control">
+      <input class="input is-static" id="nameSei" type="text" formControlName="nameSei">
+    </div>
+  </div>
+  <div class="field">
+    <label class="label" for="nameMei">
+      名
+    </label>
+    <div class="control">
+      <input class="input is-static" id="nameMei" type="text" formControlName="nameMei">
+    </div>
+  </div>
+  <div class="field">
+    <label class="label" for="postCode">
+      郵便番号
+    </label>
+    <div class="control">
+      <input class="input is-static" id="postCode" type="text" formControlName="postCode">
+    </div>
+  </div>
+  <div class="field">
+    <label class="label" for="address">
+      住所
+    </label>
+    <div class="control">
+      <input class="input is-static" id="address" type="text" formControlName="address">
+    </div>
+  </div>
+  <div class="field">
+    <label class="label" for="mail">
+      メールアドレス
+    </label>
+    <div class="control">
+      <input class="input is-static" id="mail" type="email" formControlName="mail">
+    </div>
+  </div>
+  <div class="field">
+    <label class="label" for="phone">
+      電話番号
+    </label>
+    <div class="control">
+      <input class="input is-static" id="phone" type="text" formControlName="phone">
+    </div>
+  </div>
+
+  <h3 class="subtitle">
+    <span class="icon">
+      <i class="fas fa-ticket"></i>
+    </span>
+    <span> チケット取り扱い方法</span>
+  </h3>
+
+  <div class="field">
+    <label class="label" for="payMethod">
+      代金お支払い方法
+    </label>
+    <div class="control">
+      <span *ngIf="orderForm.value.payMethod==='furikomi'">
+        銀行振込
+      </span>
+      <span *ngIf="orderForm.value.payMethod==='toujitsu'">
+        当日精算
+      </span>
+      <input class="input" id="payMethod" type="hidden" formControlName="payMethod">
+    </div>
+  </div>
+  <div class="field">
+    <label class="label" for="passMethod">
+      チケットお渡し方法
+    </label>
+    <div class="control">
+      <span *ngIf="orderForm.value.passMethod==='yuso'">
+        郵送
+      </span>
+      <span *ngIf="orderForm.value.passMethod==='azukari'">
+        当日預かり
+      </span>
+      <input class="input" id="passMethod" type="hidden" formControlName="passMethod">
+    </div>
+  </div>
+
+  <button class="button is-danger" (click)="cancelOrder()">
+    <span>キャンセル</span>
+  </button>
+</form>

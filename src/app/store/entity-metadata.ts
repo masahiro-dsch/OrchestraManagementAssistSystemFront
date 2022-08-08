@@ -1,9 +1,14 @@
-import { EntityMetadataMap } from '@ngrx/data';
+import { EntityDataModuleConfig, EntityMetadataMap } from '@ngrx/data';
 
 const entityMetadata: EntityMetadataMap = {
   Product: {},
+  Concert: {},
+  Seat: {},
+  TotalSales: {},
+  Order: {},
+  OrderNumber: {},
 };
 
-export const entityConfig = {
+export const entityConfig: EntityDataModuleConfig = {
   entityMetadata,
 };

@@ -12,5 +12,26 @@ export const defaultDataServiceConfig: DefaultDataServiceConfig = {
       entityResourceUrl: `${root}/products/`,
       collectionResourceUrl: `${root}/products/`,
     },
+    Concert: {
+      // You must specify the root as part of the resource URL.
+      entityResourceUrl: `${root}/concerts/`,
+      collectionResourceUrl: `${root}/concerts/`,
+    },
+    Seat: {
+      entityResourceUrl: `${root}/seats/`,
+      collectionResourceUrl: `${root}/seats/`,
+    },
+    TotalSales: {
+      entityResourceUrl: `${root}/totalSales/`,
+      collectionResourceUrl: `${root}/totalSales/`,
+    },
+    Order: {
+      entityResourceUrl: `${root}/orders/`,
+      collectionResourceUrl: `${root}/orders/`,
+    },
+    OrderNumber: {
+      entityResourceUrl: `${root}/orderNumber/`,
+      collectionResourceUrl: `${root}/orderNumber/`,
+    },
   },
 };
